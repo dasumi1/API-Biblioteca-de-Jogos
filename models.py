@@ -9,6 +9,9 @@ if DATABASE_URL.startswith("postgres://"):
 
 engine = create_engine(DATABASE_URL)
 
+# Cria a base do banco
+Base = declarative_base()
+
 #cria a classes/tabelas do db
 class Jogo(Base):
     __tablename__ = 'jogos'
