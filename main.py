@@ -1,14 +1,11 @@
-from typing import Optional
-
 from fastapi import FastAPI
 
 app = FastAPI()
 
+from rotas_login import login_router
+from rotas_jogos import jogos_router
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(login_router)
+app.include_router(jogos_router)
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+
