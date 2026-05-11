@@ -4,7 +4,6 @@ import os
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///banco.db")
 
-# Render usa "postgres://" mas SQLAlchemy precisa de "postgresql://"
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
