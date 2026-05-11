@@ -1,11 +1,14 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base
+import os
 
-#cria conexão com db
-engine = create_engine('sqlite:///banco.db')
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///banco.db")
 
-#cria a base do db
-Base = declarative_base()
+# Render usa "postgres://" mas SQLAlchemy precisa de "postgresql://"
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE_URL)
 
 #cria a classes/tabelas do db
 class Jogo(Base):
