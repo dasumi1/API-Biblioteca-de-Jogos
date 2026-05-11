@@ -16,6 +16,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # access to the values within the .ini file in use.
 config = context.config
 
+# Sobrescreve a URL do alembic.ini com a variável de ambiente DATABASE_URL
+DATABASE_URL = os.environ.get("DATABASE_URL", None)
+if DATABASE_URL:
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    config.set_main_option("sqlalchemy.url", DATABASE_URL)
+    
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
